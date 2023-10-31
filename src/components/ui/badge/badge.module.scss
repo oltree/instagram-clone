@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
+  }
+
+  .nickname {
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 500;
+  }
+}
