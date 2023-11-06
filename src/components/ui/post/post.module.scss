@@ -1,0 +1,52 @@
+.wrapper {
+  width: 600px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+
+  .badge {
+    height: 60px;
+    padding-left: 10px;
+  }
+
+  .image {
+    height: 300px;
+    width: 100%;
+  }
+
+  .buttons {
+    padding: 5px 10px;
+    display: flex;
+    gap: 5px;
+  }
+
+  .likes {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 10px;
+  }
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px;
+  }
+
+  .iconLike {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .iconComment {
+    cursor: pointer;
+  }
+
+  .commentTitle {
+    font-size: 14px;
+    color: #dbdbdb;
+    cursor: pointer;
+  }
+}
