@@ -8,8 +8,9 @@ interface CommentsProps {
 }
 
 export const Comments: FC<CommentsProps> = memo(({ comments }) => {
-  const [isCommentsShown, setIsCommentsShown] = useState(false);
+  const [isCommentsShown, setIsCommentsShown] = useState(true);
 
+  const isShownAllCommentsText = comments.length > 2;
   const commentForRender = isCommentsShown ? comments.slice(-2) : comments;
   const allCommentsText = isCommentsShown
     ? `Показать еще ${comments.length - commentForRender.length} комментариев`
@@ -17,12 +18,14 @@ export const Comments: FC<CommentsProps> = memo(({ comments }) => {
 
   return (
     <div className={styles.comments}>
-      <span
-        className={styles.commentTitle}
-        onClick={() => setIsCommentsShown(!isCommentsShown)}
-      >
-        {allCommentsText}
-      </span>
+      {isShownAllCommentsText && (
+        <span
+          className={styles.commentTitle}
+          onClick={() => setIsCommentsShown(!isCommentsShown)}
+        >
+          {allCommentsText}
+        </span>
+      )}
 
       {commentForRender.map(({ nickname, text }) => (
         <Comment key={nanoid()} nickname={nickname} text={text} />

@@ -5,7 +5,7 @@ import cn from 'classnames';
 import styles from './badge.module.scss';
 
 export interface BadgeProps {
-  id: string;
+  id: number;
   avatarUrl: string;
   nickname: string;
   className?: string;
