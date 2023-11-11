@@ -4,13 +4,13 @@ import { PostService } from '../../services/post';
 
 interface PostsState {
   posts: IPost[];
-  isLoading: boolean;
+  // isLoading: boolean;
   totalPosts: number;
 }
 
 const initialState: PostsState = {
   posts: [],
-  isLoading: false,
+  // isLoading: false,
   totalPosts: 0,
 };
 
@@ -40,23 +40,23 @@ export const postsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getPosts.pending, (state) => {
+      /* .addCase(getPosts.pending, (state) => {
         state.isLoading = true;
-      })
+      }) */
       .addCase(
         getPosts.fulfilled,
         (
           state,
           { payload }: PayloadAction<{ data: IPost[]; totalPosts: number }>
         ) => {
-          state.isLoading = false;
+          // state.isLoading = false;
           state.posts = [...state.posts, ...payload.data];
           state.totalPosts = payload.totalPosts;
         }
-      )
-      .addCase(getPosts.rejected, (state) => {
+      );
+    /* .addCase(getPosts.rejected, (state) => {
         state.isLoading = false;
-      });
+      }); */
   },
 });
 

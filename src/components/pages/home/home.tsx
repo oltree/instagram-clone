@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 
 export const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const { posts, isLoading, totalPosts } = useAppSelector(selectPosts);
+  const { posts, totalPosts } = useAppSelector(selectPosts);
 
   const [page, setPage] = useState(1);
 
@@ -25,15 +25,7 @@ export const Home: FC = () => {
 
   console.log(posts.length);
 
-  return isLoading ? (
-    <div className={styles.loader}>
-      <MagnifyingGlass
-        height='150'
-        width='150'
-        ariaLabel='MagnifyingGlass-loading'
-      />
-    </div>
-  ) : (
+  return (
     <InfiniteScroll
       dataLength={posts.length}
       next={nextHandler}
