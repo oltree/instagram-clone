@@ -23,7 +23,7 @@ export const Home: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  console.log(posts);
+  console.log(posts.length);
 
   return isLoading ? (
     <div className={styles.loader}>
@@ -34,35 +34,35 @@ export const Home: FC = () => {
       />
     </div>
   ) : (
-    <div className={styles.posts}>
-      <InfiniteScroll
-        dataLength={posts.length}
-        next={nextHandler}
-        hasMore={posts.length < totalPosts}
-        loader={
-          <div className={styles.loader}>
-            <MagnifyingGlass
-              height='100'
-              width='100'
-              ariaLabel='MagnifyingGlass-loading'
-            />
-          </div>
-        }
-        endMessage={<p>Thats all!</p>}
-      >
+    <InfiniteScroll
+      dataLength={posts.length}
+      next={nextHandler}
+      hasMore={posts.length < totalPosts}
+      loader={
+        <div className={styles.loader}>
+          <MagnifyingGlass
+            height='100'
+            width='100'
+            ariaLabel='MagnifyingGlass-loading'
+          />
+        </div>
+      }
+      endMessage={<p className={styles.endMessage}>Thats all!</p>}
+    >
+      <div className={styles.posts}>
         {posts.map((post) => (
           <Post
             key={nanoid()}
+            isLikedByYou
             userId={post.id}
             avatarUrl={post.author.avatarUrl}
             nickname={post.author.nickname}
             imageUrl={post.imgUrl}
             likes={post.likes.length}
-            isLikedByYou
             comments={post.comments}
           />
         ))}
-      </InfiniteScroll>
-    </div>
+      </div>
+    </InfiniteScroll>
   );
 };

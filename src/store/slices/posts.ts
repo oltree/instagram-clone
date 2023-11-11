@@ -16,19 +16,20 @@ const initialState: PostsState = {
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
-  async (page: number, { dispatch }) => {
+  async (page: number = 0, { dispatch }) => {
     try {
       const response = await PostService.getPosts({
         _page: page,
         _limit: 5,
       });
 
-      console.log(response);
-
       const { data, headers } = response;
-      const totalPosts = Number(headers['x-total-count']);
 
-      dispatch(setTotalPosts(totalPosts));
+      if (page === 1) {
+        const totalPosts = Number(headers['x-total-count']);
+
+        dispatch(setTotalPosts(totalPosts));
+      }
 
       return data;
     } catch (error: any) {
@@ -54,7 +55,7 @@ export const postsSlice = createSlice({
         getPosts.fulfilled,
         (state, { payload }: PayloadAction<IPost[]>) => {
           state.isLoading = false;
-          state.posts = state.posts.concat(payload);
+          state.posts = [...state.posts, ...payload];
         }
       )
       .addCase(getPosts.rejected, (state) => {
