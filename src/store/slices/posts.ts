@@ -18,12 +18,10 @@ export const getPosts = createAsyncThunk(
   'posts/getPosts',
   async (page: number) => {
     try {
-      const response = await PostService.getPosts({
+      const { data, headers } = await PostService.getPosts({
         _page: page,
         _limit: 5,
       });
-
-      const { data, headers } = response;
 
       const totalPosts = Number(headers['x-total-count']);
 
