@@ -4,13 +4,13 @@ interface IComment {
 }
 
 interface IAuthor {
-  id: number;
+  id: string;
   nickname: string;
   avatarUrl: string;
 }
 
 export interface IPost {
-  id: number;
+  id: string;
   imgUrl: string;
   likes: number[];
   comments: IComment[];

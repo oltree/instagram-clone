@@ -7,7 +7,7 @@ import { IComment } from '../comment/comment';
 import { Buttons } from './buttons';
 
 export interface PostProps {
-  userId: number;
+  userId: string;
   avatarUrl: string;
   nickname: string;
   imageUrl: string;

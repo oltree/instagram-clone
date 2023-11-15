@@ -1,12 +1,24 @@
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 import styles from './header.module.scss';
 import { Badge } from '../../ui/badge';
-import { BadgeProps } from '../../ui/badge/badge';
+
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { userSelector } from '../../../store/selectors/users';
+import { getUserById } from '../../../store/slices/users';
 
-interface HeaderProps extends BadgeProps {}
+interface HeaderProps {}
 
-export const Header: FC<HeaderProps> = memo(({ id, avatarUrl, nickname }) => {
+export const Header: FC<HeaderProps> = memo(() => {
+  const dispatch = useAppDispatch();
+
+  const currentUser = useAppSelector(userSelector);
+
+  useEffect(() => {
+    dispatch(getUserById(1));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -14,7 +26,11 @@ export const Header: FC<HeaderProps> = memo(({ id, avatarUrl, nickname }) => {
           Instagram
         </Link>
 
-        <Badge id={id} avatarUrl={avatarUrl} nickname={nickname} />
+        <Badge
+          id={currentUser.id}
+          avatarUrl={currentUser.avatarUrl}
+          nickname={currentUser.nickname}
+        />
       </div>
     </div>
   );

@@ -2,21 +2,18 @@ import { FC, PropsWithChildren } from 'react';
 import { Header } from './header';
 
 import styles from './layout.module.scss';
-import { BadgeProps } from '../ui/badge/badge';
+import { Outlet } from 'react-router-dom';
 
-interface LayoutProps extends PropsWithChildren, BadgeProps {}
+interface LayoutProps extends PropsWithChildren {}
 
-export const Layout: FC<LayoutProps> = ({
-  id,
-  avatarUrl,
-  nickname,
-  children,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className={styles.wrapper}>
-      <Header id={id} avatarUrl={avatarUrl} nickname={nickname} />
+      <Header />
 
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </div>
   );
 };

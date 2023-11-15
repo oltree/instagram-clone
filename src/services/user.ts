@@ -4,8 +4,14 @@ import { IUser } from '../types/user';
 
 export const UserService = {
   async getUsers() {
-    const response = await api.get<IUser>('/users');
+    const response = await api.get<IUser[]>('/users');
 
-    return response?.data;
+    return response;
+  },
+
+  async getUserById(id: number) {
+    const response = await api.get<IUser>(`/users/${id}`);
+
+    return response;
   },
 };

@@ -3,14 +3,14 @@ import { Post } from '../../ui/post';
 import styles from './home.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { getPosts } from '../../../store/slices/posts';
-import { selectPosts } from '../../../store/selectors/posts';
+import { postsSelector } from '../../../store/selectors/posts';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { nanoid } from 'nanoid';
 
 export const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const { posts, totalPosts } = useAppSelector(selectPosts);
+  const { posts, totalPosts } = useAppSelector(postsSelector);
 
   const [page, setPage] = useState(1);
 
@@ -22,8 +22,6 @@ export const Home: FC = () => {
     dispatch(getPosts(page));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-
-  console.log(posts.length);
 
   return (
     <InfiniteScroll
