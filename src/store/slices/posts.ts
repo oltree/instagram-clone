@@ -32,6 +32,19 @@ export const getPosts = createAsyncThunk(
   }
 );
 
+export const giveLike = createAsyncThunk(
+  'like/giveLike',
+  async ({ postId, userId }: { postId: string; userId: string }) => {
+    try {
+      const { data } = await PostService.giveLike(postId);
+
+      return { data, userId };
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -51,8 +64,41 @@ export const postsSlice = createSlice({
           state.posts = [...state.posts, ...payload.data];
           state.totalPosts = payload.totalPosts;
         }
+      )
+      /* .addCase(getPosts.rejected, (state) => {
+        state.isLoading = false;
+      }); */
+
+      /* .addCase(giveLike.pending, (state) => {
+        state.isLoading = true;
+      }) */
+      .addCase(
+        giveLike.fulfilled,
+        (
+          state,
+          { payload }: PayloadAction<{ data: { id: string }; userId: string }>
+        ) => {
+          const postId = payload.data.id;
+          const userId = payload.userId;
+
+          const postIndex = state.posts.findIndex((post) => post.id === postId);
+
+          if (postIndex) {
+            const updatedPost: IPost = { ...state.posts[postIndex] };
+
+            if (updatedPost.likes.includes(Number(userId))) {
+              updatedPost.likes = updatedPost.likes.filter(
+                (id) => id !== Number(userId)
+              );
+            } else {
+              updatedPost.likes = [...updatedPost.likes, Number(userId)];
+            }
+
+            state.posts[postIndex] = updatedPost;
+          }
+        }
       );
-    /* .addCase(getPosts.rejected, (state) => {
+    /* .addCase(giveLike.rejected, (state) => {
         state.isLoading = false;
       }); */
   },

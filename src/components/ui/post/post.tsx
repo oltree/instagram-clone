@@ -3,50 +3,37 @@ import styles from './post.module.scss';
 import { Badge } from '../badge';
 import cn from 'classnames';
 import { Comments } from './comments';
-import { IComment } from '../comment/comment';
 import { Buttons } from './buttons';
+import { IPost } from '../../../types/post';
+import { IUser } from '../../../types/user';
 
 export interface PostProps {
-  userId: string;
-  avatarUrl: string;
-  nickname: string;
-  imageUrl: string;
-  likes: number;
-  isLikedByYou: boolean;
-  comments: IComment[];
+  post: IPost;
+  user: IUser;
   className?: string;
 }
 
-export const Post: FC<PostProps> = memo(
-  ({
-    userId,
-    avatarUrl,
-    nickname,
-    imageUrl,
-    likes,
-    isLikedByYou,
-    comments,
-    className,
-  }) => {
-    return (
-      <div className={cn(styles.wrapper, className)}>
-        <Badge
-          id={userId}
-          avatarUrl={avatarUrl}
-          nickname={nickname}
-          className={styles.badge}
-        />
+export const Post: FC<PostProps> = memo(({ post, user, className }) => {
+  const isLikedByYou = post.likes.includes(Number(user.id));
 
-        <img src={imageUrl} alt='post' className={styles.image} />
+  return (
+    <div className={cn(styles.wrapper, className)}>
+      <Badge
+        id={post.author.id}
+        avatarUrl={post.author.avatarUrl}
+        nickname={post.author.nickname}
+        className={styles.badge}
+      />
 
-        <Buttons isLikedByYou={isLikedByYou} />
+      <img src={post.imgUrl} alt='post' className={styles.image} />
 
-        <p className={styles.likes}>{`Оценили ${likes} человек`}</p>
+      <Buttons isLikedByYou={isLikedByYou} userId={user.id} post={post} />
 
-        <Comments comments={comments} />
+      <p className={styles.likes}>{`Оценили ${post.likes.length} человек`}</p>
 
-        <textarea name='' id=''></textarea>
-      </div>
-    );
-  }
-);
+      <Comments comments={post.comments} />
+
+      <textarea name='' id=''></textarea>
+    </div>
+  );
+});

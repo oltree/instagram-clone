@@ -9,4 +9,10 @@ export const PostService = {
 
     return response;
   },
+
+  async giveLike(postId: string) {
+    const response = await api.put<IPost>(`/posts/${postId}`);
+
+    return response;
+  },
 };
