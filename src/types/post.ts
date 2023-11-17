@@ -12,7 +12,7 @@ interface IAuthor {
 export interface IPost {
   id: string;
   imgUrl: string;
-  likes: number[];
+  likes: string[];
   comments: IComment[];
   author: IAuthor;
 }

@@ -32,13 +32,13 @@ export const getPosts = createAsyncThunk(
   }
 );
 
-export const giveLike = createAsyncThunk(
-  'like/giveLike',
-  async ({ postId, userId }: { postId: string; userId: string }) => {
+export const updatePost = createAsyncThunk(
+  'post/updatePost',
+  async ({ postId, post }: { postId: string; post: IPost }) => {
     try {
-      const { data } = await PostService.giveLike(postId);
+      const { data } = await PostService.updatePost(postId, post);
 
-      return { data, userId };
+      return data;
     } catch (error: any) {
       return error.message;
     }
@@ -69,36 +69,22 @@ export const postsSlice = createSlice({
         state.isLoading = false;
       }); */
 
-      /* .addCase(giveLike.pending, (state) => {
+      /* .addCase(updatePost.pending, (state) => {
         state.isLoading = true;
       }) */
       .addCase(
-        giveLike.fulfilled,
-        (
-          state,
-          { payload }: PayloadAction<{ data: { id: string }; userId: string }>
-        ) => {
-          const postId = payload.data.id;
-          const userId = payload.userId;
+        updatePost.fulfilled,
+        (state, { payload }: PayloadAction<IPost>) => {
+          const foundPostIndex = state.posts.findIndex(
+            (post) => post.id === payload.id
+          );
 
-          const postIndex = state.posts.findIndex((post) => post.id === postId);
-
-          if (postIndex) {
-            const updatedPost: IPost = { ...state.posts[postIndex] };
-
-            if (updatedPost.likes.includes(Number(userId))) {
-              updatedPost.likes = updatedPost.likes.filter(
-                (id) => id !== Number(userId)
-              );
-            } else {
-              updatedPost.likes = [...updatedPost.likes, Number(userId)];
-            }
-
-            state.posts[postIndex] = updatedPost;
+          if (foundPostIndex !== -1) {
+            state.posts[foundPostIndex] = payload;
           }
         }
       );
-    /* .addCase(giveLike.rejected, (state) => {
+    /* .addCase(updatePost.rejected, (state) => {
         state.isLoading = false;
       }); */
   },

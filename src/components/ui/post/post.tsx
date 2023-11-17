@@ -14,7 +14,7 @@ export interface PostProps {
 }
 
 export const Post: FC<PostProps> = memo(({ post, user, className }) => {
-  const isLikedByYou = post.likes.includes(Number(user.id));
+  const isLikedByYou = post.likes.includes(user.id);
 
   return (
     <div className={cn(styles.wrapper, className)}>

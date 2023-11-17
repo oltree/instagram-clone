@@ -23,7 +23,7 @@ export const Home: FC = () => {
 
   useEffect(() => {
     dispatch(getPosts(page));
-    dispatch(getUserById(1));
+    dispatch(getUserById('1'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 

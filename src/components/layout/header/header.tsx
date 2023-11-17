@@ -15,7 +15,7 @@ export const Header: FC<HeaderProps> = memo(() => {
   const currentUser = useAppSelector(userSelector);
 
   useEffect(() => {
-    dispatch(getUserById(1));
+    dispatch(getUserById('1'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

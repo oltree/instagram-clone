@@ -37,7 +37,7 @@ export const getUsers = createAsyncThunk('users/getUsers', async () => {
 
 export const getUserById = createAsyncThunk(
   'user/getUserById',
-  async (id: number) => {
+  async (id: string) => {
     try {
       const { data } = await UserService.getUserById(id);
 

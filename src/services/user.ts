@@ -9,7 +9,7 @@ export const UserService = {
     return response;
   },
 
-  async getUserById(id: number) {
+  async getUserById(id: string) {
     const response = await api.get<IUser>(`/users/${id}`);
 
     return response;

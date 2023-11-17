@@ -10,8 +10,8 @@ export const PostService = {
     return response;
   },
 
-  async giveLike(postId: string) {
-    const response = await api.put<IPost>(`/posts/${postId}`);
+  async updatePost(postId: string, data: IPost) {
+    const response = await api.put<IPost>(`/posts/${postId}`, data);
 
     return response;
   },
