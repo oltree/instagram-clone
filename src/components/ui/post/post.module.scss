@@ -51,4 +51,28 @@
     color: #dbdbdb;
     cursor: pointer;
   }
+
+  .textarea {
+    width: 100%;
+    resize: none;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 19px;
+    background: #fafafa;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .buttonSend {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    background: blue;
+  }
 }

@@ -14,6 +14,22 @@
         {
           "nickname": "vosdux",
           "text": "way\n"
+        },
+        {
+          "nickname": "vosduxxx",
+          "text": "hello my friend"
+        },
+        {
+          "nickname": "vosduxxx",
+          "text": "hello my friend 2"
+        },
+        {
+          "nickname": "vosduxxx",
+          "text": "test message"
+        },
+        {
+          "nickname": "vosduxxx",
+          "text": "test"
         }
       ],
       "author": {
@@ -36,6 +52,10 @@
         {
           "nickname": "vosdux",
           "text": "way\n"
+        },
+        {
+          "nickname": "vosduxxx",
+          "text": "test"
         }
       ],
       "author": {
@@ -47,7 +67,9 @@
     {
       "id": "3",
       "imgUrl": "https://img.desktopwallpapers.ru/auto/pics/wide/1920x1200/f8e101812b260e55d1d9b7aa64af8171.jpg",
-      "likes": [],
+      "likes": [
+        "1"
+      ],
       "comments": [
         {
           "nickname": "IUvan222",
@@ -81,8 +103,7 @@
       "id": "5",
       "imgUrl": "https://img2.goodfon.ru/original/7744x5400/8/d3/zakat-nebo-solnce-luchi-oblaka.jpg",
       "likes": [
-        "2",
-        "1"
+        "2"
       ],
       "comments": [],
       "author": {

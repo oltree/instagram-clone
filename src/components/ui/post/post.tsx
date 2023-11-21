@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { ChangeEvent, FC, memo, useState } from 'react';
 import styles from './post.module.scss';
 import { Badge } from '../badge';
 import cn from 'classnames';
@@ -6,6 +6,9 @@ import { Comments } from './comments';
 import { Buttons } from './buttons';
 import { IPost } from '../../../types/post';
 import { IUser } from '../../../types/user';
+import { debounce } from '../../../utils/debounce';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { updatePost } from '../../../store/slices/posts';
 
 export interface PostProps {
   post: IPost;
@@ -14,7 +17,23 @@ export interface PostProps {
 }
 
 export const Post: FC<PostProps> = memo(({ post, user, className }) => {
-  const isLikedByYou = post.likes.includes(user.id);
+  const dispatch = useAppDispatch();
+  const [comment, setComment] = useState('');
+
+  const handleChangeCommnet = debounce(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setComment(e.target.value);
+    },
+    500
+  );
+
+  const updatedPost: IPost = {
+    ...post,
+    comments: [...post.comments, { nickname: user.nickname, text: comment }],
+  };
+
+  const handleSendCommentClick = () =>
+    dispatch(updatePost({ postId: post.id, post: updatedPost }));
 
   return (
     <div className={cn(styles.wrapper, className)}>
@@ -27,13 +46,30 @@ export const Post: FC<PostProps> = memo(({ post, user, className }) => {
 
       <img src={post.imgUrl} alt='post' className={styles.image} />
 
-      <Buttons isLikedByYou={isLikedByYou} userId={user.id} post={post} />
+      <Buttons user={user} post={post} />
 
       <p className={styles.likes}>{`Оценили ${post.likes.length} человек`}</p>
 
       <Comments comments={post.comments} />
 
-      <textarea name='' id=''></textarea>
+      <textarea
+        name='textarea'
+        rows={2}
+        placeholder='Enter a comment...'
+        className={styles.textarea}
+        onChange={handleChangeCommnet}
+      />
+
+      {comment.length ? (
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.buttonSend}
+            onClick={handleSendCommentClick}
+          >
+            Send Comment
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 });

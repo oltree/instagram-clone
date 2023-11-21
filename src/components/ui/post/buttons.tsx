@@ -4,45 +4,46 @@ import cn from 'classnames';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { IPost } from '../../../types/post';
 import { updatePost } from '../../../store/slices/posts';
+import { IUser } from '../../../types/user';
 
 interface ButtonsProps {
-  isLikedByYou: boolean;
-  userId: string;
+  user: IUser;
   post: IPost;
 }
 
-export const Buttons: FC<ButtonsProps> = memo(
-  ({ isLikedByYou, userId, post }) => {
-    const dispatch = useAppDispatch();
+export const Buttons: FC<ButtonsProps> = memo(({ user, post }) => {
+  const dispatch = useAppDispatch();
 
-    const updatedPost: IPost = {
-      ...post,
-      likes: isLikedByYou
-        ? post.likes.filter((id) => id !== userId)
-        : [...post.likes, userId],
-    };
+  const isLikedByYou = post.likes.includes(user.id);
+  const isCommentByYou = post.comments.find(
+    ({ nickname }) => nickname === user.nickname
+  );
+  const updatedPost: IPost = {
+    ...post,
+    likes: isLikedByYou
+      ? post.likes.filter((id) => id !== user.id)
+      : [...post.likes, user.id],
+  };
 
-    return (
-      <div className={styles.buttons}>
-        <button
-          onClick={() =>
-            dispatch(updatePost({ postId: post.id, post: updatedPost }))
-          }
-        >
-          <i
-            className={cn(
-              isLikedByYou ? 'fas fa-heart' : 'far fa-heart',
-              styles.iconLike
-            )}
-          />
-        </button>
+  const handleToggleLike = () =>
+    dispatch(updatePost({ postId: post.id, post: updatedPost }));
+
+  return (
+    <div className={styles.buttons}>
+      <button onClick={handleToggleLike}>
         <i
           className={cn(
-            isLikedByYou ? 'fas fa-comment' : 'far fa-comment',
-            styles.iconComment
+            isLikedByYou ? 'fas fa-heart' : 'far fa-heart',
+            styles.iconLike
           )}
         />
-      </div>
-    );
-  }
-);
+      </button>
+      <i
+        className={cn(
+          isCommentByYou ? 'fas fa-comment' : 'far fa-comment',
+          styles.iconComment
+        )}
+      />
+    </div>
+  );
+});
