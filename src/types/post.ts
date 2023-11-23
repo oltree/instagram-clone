@@ -16,3 +16,8 @@ export interface IPost {
   comments: IComment[];
   author: IAuthor;
 }
+
+export type IPostByUser = {
+  id: string;
+  posts: IPost[];
+};

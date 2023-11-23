@@ -1,0 +1,97 @@
+.wrapper {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+
+  .descriptionContainer {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .infornation {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .nickname {
+        font-size: 30px;
+        font-weight: 500;
+      }
+
+      .subscribers {
+        margin: 5px 0;
+        display: flex;
+        gap: 20px;
+      }
+
+      .text {
+        font-size: 16px;
+      }
+
+      .textBold {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .link {
+        color: black;
+        font-weight: 500;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+
+    .card {
+      position: relative;
+      border-radius: 10px;
+
+      .image {
+        width: 300px;
+        height: 300px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .actions {
+        display: none;
+      }
+
+      &:hover {
+        .actions {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 10;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 10px;
+
+          div {
+            background: #fff;
+            padding: 5px;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+  }
+}

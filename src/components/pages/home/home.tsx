@@ -6,9 +6,9 @@ import { postsSelector } from '../../../store/selectors/posts';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { nanoid } from 'nanoid';
-import { getPosts } from '../../../store/slices/posts';
 import { userSelector } from '../../../store/selectors/users';
-import { getUserById } from '../../../store/slices/users';
+import { getPosts } from '../../../store/thunks/posts';
+import { getUserById } from '../../../store/thunks/users';
 
 export const Home: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,9 +23,13 @@ export const Home: FC = () => {
 
   useEffect(() => {
     dispatch(getPosts(page));
-    dispatch(getUserById('1'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  useEffect(() => {
+    dispatch(getUserById('1'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <InfiniteScroll

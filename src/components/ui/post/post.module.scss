@@ -17,12 +17,6 @@
     width: 100%;
   }
 
-  .buttons {
-    padding: 5px 10px;
-    display: flex;
-    gap: 10px;
-  }
-
   .likes {
     font-size: 14px;
     font-weight: 600;
@@ -33,17 +27,6 @@
     display: flex;
     flex-direction: column;
     padding: 0 10px 10px;
-  }
-
-  .iconLike {
-    background: #fff;
-    font-size: 18px;
-    cursor: pointer;
-  }
-
-  .iconComment {
-    font-size: 18px;
-    cursor: pointer;
   }
 
   .commentTitle {

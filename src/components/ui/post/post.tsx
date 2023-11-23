@@ -3,12 +3,12 @@ import styles from './post.module.scss';
 import { Badge } from '../badge';
 import cn from 'classnames';
 import { Comments } from './comments';
-import { Buttons } from './buttons';
+import { ActionButtons } from '../action-buttons/action-buttons';
 import { IPost } from '../../../types/post';
 import { IUser } from '../../../types/user';
 import { debounce } from '../../../utils/debounce';
 import { useAppDispatch } from '../../../hooks/hooks';
-import { updatePost } from '../../../store/slices/posts';
+import { updatePost } from '../../../store/thunks/posts';
 
 export interface PostProps {
   post: IPost;
@@ -46,7 +46,7 @@ export const Post: FC<PostProps> = memo(({ post, user, className }) => {
 
       <img src={post.imgUrl} alt='post' className={styles.image} />
 
-      <Buttons user={user} post={post} />
+      <ActionButtons user={user} post={post} />
 
       <p className={styles.likes}>{`Оценили ${post.likes.length} человек`}</p>
 

@@ -1,17 +1,17 @@
 import { FC, memo } from 'react';
-import styles from './post.module.scss';
+import styles from './action-buttons.module.scss';
 import cn from 'classnames';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { IPost } from '../../../types/post';
-import { updatePost } from '../../../store/slices/posts';
 import { IUser } from '../../../types/user';
+import { updatePost } from '../../../store/thunks/posts';
 
-interface ButtonsProps {
+interface ActionButtonsProps {
   user: IUser;
   post: IPost;
 }
 
-export const Buttons: FC<ButtonsProps> = memo(({ user, post }) => {
+export const ActionButtons: FC<ActionButtonsProps> = memo(({ user, post }) => {
   const dispatch = useAppDispatch();
 
   const isLikedByYou = post.likes.includes(user.id);

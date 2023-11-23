@@ -5,7 +5,7 @@ import { Badge } from '../../ui/badge';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { userSelector } from '../../../store/selectors/users';
-import { getUserById } from '../../../store/slices/users';
+import { getUserById } from '../../../store/thunks/users';
 
 interface HeaderProps {}
 

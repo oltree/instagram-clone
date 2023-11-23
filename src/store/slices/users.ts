@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '../../types/user';
-import { UserService } from '../../services/user';
+import { getUserById, getUsers } from '../thunks/users';
 
 interface UsersState {
   users: IUser[];
@@ -24,29 +23,6 @@ const initialState: UsersState = {
   },
   // isLoading: false,
 };
-
-export const getUsers = createAsyncThunk('users/getUsers', async () => {
-  try {
-    const { data } = await UserService.getUsers();
-
-    return data;
-  } catch (error: any) {
-    return error.message;
-  }
-});
-
-export const getUserById = createAsyncThunk(
-  'user/getUserById',
-  async (id: string) => {
-    try {
-      const { data } = await UserService.getUserById(id);
-
-      return data;
-    } catch (error: any) {
-      return error.message;
-    }
-  }
-);
 
 export const usersSlice = createSlice({
   name: 'users',
