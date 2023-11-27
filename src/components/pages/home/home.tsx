@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { postsSelector } from '../../../store/selectors/posts';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { nanoid } from 'nanoid';
 import { userSelector } from '../../../store/selectors/users';
 import { getPosts } from '../../../store/thunks/posts';
 import { getUserById } from '../../../store/thunks/users';
@@ -49,7 +48,7 @@ export const Home: FC = () => {
     >
       <div className={styles.posts}>
         {posts.map((post) => (
-          <Post key={nanoid()} post={post} user={user} />
+          <Post key={post.id} post={post} user={user} />
         ))}
       </div>
     </InfiniteScroll>

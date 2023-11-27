@@ -1,12 +1,8 @@
+import { IUser } from './user';
+
 interface IComment {
   nickname: string;
   text: string;
-}
-
-interface IAuthor {
-  id: string;
-  nickname: string;
-  avatarUrl: string;
 }
 
 export interface IPost {
@@ -14,10 +10,5 @@ export interface IPost {
   imgUrl: string;
   likes: string[];
   comments: IComment[];
-  author: IAuthor;
+  author: IUser;
 }
-
-export type IPostByUser = {
-  id: string;
-  posts: IPost[];
-};

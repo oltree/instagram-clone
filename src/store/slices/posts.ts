@@ -1,28 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPost, IPostByUser } from '../../types/post';
-import { getPosts, getPostsByUser, updatePost } from '../thunks/posts';
+import { IPost } from '../../types/post';
+import { getPosts, updatePost } from '../thunks/posts';
 
 interface PostsState {
   posts: IPost[];
   totalPosts: number;
-  postsByUser: IPostByUser;
+  postsByUser: IPost[];
   // isLoading: boolean;
 }
 
 const initialState: PostsState = {
   posts: [],
   totalPosts: 0,
-  postsByUser: {
-    id: '',
-    posts: [],
-  },
+  postsByUser: [],
   // isLoading: false,
 };
 
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    getPostsByUser: (state, { payload: userId }: PayloadAction<string>) => {
+      state.postsByUser = state.posts.filter(
+        (post) => post.author.id === userId
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       /* .addCase(getPosts.pending, (state) => {
@@ -35,7 +38,9 @@ export const postsSlice = createSlice({
           { payload }: PayloadAction<{ data: IPost[]; totalPosts: number }>
         ) => {
           // state.isLoading = false;
-          state.posts = [...state.posts, ...payload.data];
+          if (state.posts[0]?.id !== payload.data[0]?.id) {
+            state.posts = [...state.posts, ...payload.data];
+          }
           state.totalPosts = payload.totalPosts;
         }
       )
@@ -56,27 +61,16 @@ export const postsSlice = createSlice({
 
           if (foundPostIndex !== -1) {
             state.posts[foundPostIndex] = payload;
+            state.postsByUser[foundPostIndex] = payload;
           }
         }
-      )
-      /* .addCase(updatePost.rejected, (state) => {
-        state.isLoading = false;
-      }); */
-
-      /* .addCase(getPostsByUser.pending, (state) => {
-        state.isLoading = true;
-      }) */
-      .addCase(
-        getPostsByUser.fulfilled,
-        (state, { payload }: PayloadAction<IPostByUser>) => {
-          // state.isLoading = false;
-          state.postsByUser = payload;
-        }
       );
-    /* .addCase(getPostsByUser.rejected, (state) => {
+    /* .addCase(updatePost.rejected, (state) => {
         state.isLoading = false;
       }); */
   },
 });
+
+export const { getPostsByUser } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -3,17 +3,17 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { userSelector } from '../../../store/selectors/users';
 import styles from './user.module.scss';
 import { getUserById } from '../../../store/thunks/users';
-import { getPostsByUser } from '../../../store/thunks/posts';
 import { postsByUserSelector } from '../../../store/selectors/posts';
 import { useParams } from 'react-router-dom';
 import { ActionButtons } from '../../ui/action-buttons/action-buttons';
+import { getPostsByUser } from '../../../store/slices/posts';
 
-export const User: FC = memo((props) => {
-  const { id } = useParams();
+export const User: FC = memo(() => {
   const dispatch = useAppDispatch();
+  const { id } = useParams();
 
   const user = useAppSelector(userSelector);
-  const { posts } = useAppSelector(postsByUserSelector);
+  const postsByUser = useAppSelector(postsByUserSelector);
 
   useEffect(() => {
     dispatch(getUserById(id || ''));
@@ -38,11 +38,15 @@ export const User: FC = memo((props) => {
               <span className={styles.textBold}>{12}</span> posts
             </p>
             <p className={styles.text}>
-              <span className={styles.textBold}>{user.subscribers.length}</span>{' '}
+              <span className={styles.textBold}>
+                {user?.subscribers?.length}
+              </span>{' '}
               subscribers
             </p>
             <p className={styles.text}>
-              <span className={styles.textBold}>{user.subscribed.length}</span>{' '}
+              <span className={styles.textBold}>
+                {user?.subscribed?.length}
+              </span>{' '}
               subscribed
             </p>
           </div>
@@ -58,7 +62,7 @@ export const User: FC = memo((props) => {
       </div>
 
       <div className={styles.cards}>
-        {posts.map((post) => (
+        {postsByUser.map((post) => (
           <div key={post.id} className={styles.card}>
             <img
               src={post.imgUrl}

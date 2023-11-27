@@ -32,16 +32,3 @@ export const updatePost = createAsyncThunk(
     }
   }
 );
-
-export const getPostsByUser = createAsyncThunk(
-  'postsByUser/getPostsByUser',
-  async (userId: string) => {
-    try {
-      const { data } = await PostService.getPostsByUser(userId);
-
-      return data;
-    } catch (error: any) {
-      return error.message;
-    }
-  }
-);
